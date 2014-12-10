@@ -116,4 +116,3 @@ nmap <F3> :wincmd w<CR>
 
 "Swap ; with :
 nnoremap ; :
-nnoremap : ;
