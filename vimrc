@@ -96,6 +96,9 @@ colorscheme vividchalk
 set background=dark
 set hlsearch
 
+highlight ColorColumn ctermbg=214
+call matchadd('ColorColumn', '\%81v', 100) 
+
 
 " Customized Mappings
 
@@ -111,3 +114,6 @@ nmap <F2> :NERDTreeTabsToggle<CR>
 "Move between windows
 nmap <F3> :wincmd w<CR>
 
+"Swap ; with :
+nnoremap ; :
+nnoremap : ;
