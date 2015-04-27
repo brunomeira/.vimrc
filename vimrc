@@ -10,32 +10,16 @@
 " properly set to work with the Vim-related packages available in Debian.
 runtime! debian.vim
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
-
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-  syntax on
-endif
-
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
-
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
 "if has("autocmd")
 "  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 "endif
 
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"if has("autocmd")
-"  filetype plugin indent on
-"endif
+" Source a global configuration file if available
+if filereadable("/etc/vim/vimrc.local")
+  source /etc/vim/vimrc.local
+endif
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
@@ -57,11 +41,12 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ervandew/supertab'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/AutoComplPop'
+"Plugin 'vim-scripts/AutoComplPop'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-endwise'
@@ -75,18 +60,26 @@ Plugin 'othree/html5.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'tpope/vim-surround'
 Plugin 'sandeepravi/refactor-rails.vim'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-dispatch'
+Plugin 'yegappan/greplace'
+
+Plugin 'jcfaria/Vim-R-plugin'
 
 call vundle#end()            " required
 
-set expandtab
-set shiftwidth=4
-set softtabstop=4
-filetype plugin indent on    " required
+set shiftwidth=2
+set tabstop=2
 
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
+syntax on
+filetype plugin indent on
+
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+set foldlevelstart=1
 
 autocmd VimEnter * NERDTree
 set number
@@ -95,12 +88,17 @@ set t_Co=256
 colorscheme vividchalk
 set background=dark
 set hlsearch
+set list
+set listchars=tab:>>
+
+let g:ruby_fold = 1
 
 highlight ColorColumn ctermbg=214
-call matchadd('ColorColumn', '\%81v', 100) 
-
+call matchadd('ColorColumn', '\%81v', 100)
 
 " Customized Mappings
+
+nnoremap ; :
 
 "Splits screen in half and opens proper test file -IF class is a model. Check :help rails-alternate-related
 nmap <Leader>t :AS<CR>
@@ -113,6 +111,3 @@ nmap <F2> :NERDTreeTabsToggle<CR>
 
 "Move between windows
 nmap <F3> :wincmd w<CR>
-
-"Swap ; with :
-nnoremap ; :
