@@ -1,25 +1,5 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim (usually just
-" /usr/share/vim/vimcurrent/debian.vim) and sourced by the call to :runtime
-" you can find below.  If you wish to change any of those settings, you should
-" do it in this file (/etc/vim/vimrc), since debian.vim will be overwritten
-" everytime an upgrade of the vim packages is performed.  It is recommended to
-" make changes after sourcing debian.vim since it alters the value of the
-" 'compatible' option.
 
-" This line should not be removed as it ensures that various options are
-" properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
-
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
+set secure exrc " Open vimrc in local directories, this might be a security issue
 
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
@@ -64,8 +44,8 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-dispatch'
 Plugin 'yegappan/greplace'
 
-Plugin 'jcfaria/Vim-R-plugin'
-
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 call vundle#end()            " required
 
 set shiftwidth=2
@@ -79,7 +59,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-set foldlevelstart=1
+" set foldlevelstart=1
 
 autocmd VimEnter * NERDTree
 set number
@@ -91,7 +71,7 @@ set hlsearch
 set list
 set listchars=tab:>>
 
-let g:ruby_fold = 1
+" let g:ruby_fold = 1
 
 highlight ColorColumn ctermbg=214
 call matchadd('ColorColumn', '\%81v', 100)
